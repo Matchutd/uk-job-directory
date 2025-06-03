@@ -1,224 +1,179 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>UK Job Search Directory</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      margin: 2em;
-      background-color: #f4f4f4;
+      background-color: #1e1bb9;
       color: #333;
+      padding: 2rem;
     }
 
-    h1 {
-      color: #2c3e50;
+    h1, h2 {
       text-align: center;
+      color: white;
     }
 
     .search-container {
       text-align: center;
-      margin-bottom: 2em;
+      margin: 2rem 0;
     }
 
     .search-container input {
-      width: 50%;
-      padding: 0.5em;
+      width: 60%;
+      padding: 0.6em;
       font-size: 1em;
-      border: 1px solid #ccc;
-      border-radius: 5px;
+      border: none;
+      border-radius: 6px;
+    }
+
+    .category {
+      margin-bottom: 3rem;
     }
 
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 1.5em;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      margin-top: 1rem;
     }
 
     .card {
-      background-color: #fff;
-      border-radius: 10px;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
       overflow: hidden;
       display: flex;
       flex-direction: column;
-      align-items: center;
-      padding: 1em;
-      transition: transform 0.2s;
     }
 
-    .card:hover {
-      transform: scale(1.02);
+    .card-img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      background: #eee;
     }
 
-    .card img {
-      width: 150px;
-      height: auto;
-      margin-bottom: 1em;
+    .card-body {
+      padding: 1.2rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
     }
 
-    .card h2 {
-      font-size: 1.1em;
-      margin: 0.5em 0;
-      color: #007acc;
-      text-align: center;
+    .card-title {
+      font-size: 1.2rem;
+      color: #d1007e;
+      margin-bottom: 0.5rem;
     }
 
-    .card a {
-      display: inline-block;
-      margin-top: 0.5em;
-      padding: 0.5em 1em;
-      background-color: #007acc;
-      color: #fff;
+    .card-description {
+      font-size: 0.95rem;
+      margin-bottom: 1rem;
+      line-height: 1.4;
+    }
+
+    .card-button {
+      background-color: #d1007e;
+      color: white;
       text-decoration: none;
-      border-radius: 5px;
+      padding: 0.6rem 1rem;
+      border-radius: 6px;
+      text-align: center;
+      font-weight: bold;
     }
 
-    .card a:hover {
-      background-color: #005f99;
-    }
-
-    @media (max-width: 600px) {
-      .search-container input {
-        width: 90%;
-      }
+    .card-button:hover {
+      background-color: #a9005f;
     }
   </style>
 </head>
 <body>
   <h1>UK Job Search Directory</h1>
-
   <div class="search-container">
-    <input type="text" id="searchInput" placeholder="Search job sites..." onkeyup="filterCards()" />
+    <input type="text" id="searchInput" placeholder="Search job boards or keywords..." oninput="updateCards()">
   </div>
 
-  <div class="grid" id="jobGrid">
-    <!-- Job Site Cards -->
-    <div class="card">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/4/4f/Indeed_logo.svg" alt="Indeed UK Logo" />
-      <h2>Indeed UK</h2>
-      <a href="https://www.indeed.co.uk" target="_blank">Visit Site</a>
+  <div class="category">
+    <h2>🌐 General Job Boards</h2>
+    <div class="grid" id="secularGrid">
+      <!-- Cards will be injected here by JavaScript -->
     </div>
+  </div>
 
-    <div class="card">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/6/6e/Reed.co.uk_logo.svg" alt="Reed.co.uk Logo" />
-      <h2>Reed.co.uk</h2>
-      <a href="https://www.reed.co.uk" target="_blank">Visit Site</a>
-    </div>
-
-    <div class="card">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/9/9e/Totaljobs_logo.svg" alt="Totaljobs Logo" />
-      <h2>Totaljobs</h2>
-      <a href="https://www.totaljobs.com" target="_blank">Visit Site</a>
-    </div>
-
-    <div class="card">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/1/1b/CV-Library_logo.png" alt="CV-Library Logo" />
-      <h2>CV-Library</h2>
-      <a href="https://www.cv-library.co.uk" target="_blank">Visit Site</a>
-    </div>
-
-    <div class="card">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/8/8c/Monster_logo.svg" alt="Monster UK Logo" />
-      <h2>Monster UK</h2>
-      <a href="https://www.monster.co.uk" target="_blank">Visit Site</a>
-    </div>
-
-    <div class="card">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Adzuna_logo.svg" alt="Adzuna Logo" />
-      <h2>Adzuna</h2>
-      <a href="https://www.adzuna.co.uk" target="_blank">Visit Site</a>
-    </div>
-
-    <div class="card">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/0/0e/Jobsite_logo.svg" alt="Jobsite Logo" />
-      <h2>Jobsite</h2>
-      <a href="https://www.jobsite.co.uk" target="_blank">Visit Site</a>
-    </div>
-
-    <div class="card">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/0/0e/The_Guardian_logo.svg" alt="Guardian Jobs Logo" />
-      <h2>Guardian Jobs</h2>
-      <a href="https://jobs.theguardian.com" target="_blank">Visit Site</a>
-    </div>
-
-    <div class="card">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" alt="LinkedIn Jobs Logo" />
-      <h2>LinkedIn Jobs</h2>
-      <a href="https://www.linkedin.com/jobs" target="_blank">Visit Site</a>
-    </div>
-
-    <div class="card">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/5/59/Glassdoor_logo.svg" alt="Glassdoor UK Logo" />
-      <h2>Glassdoor UK</h2>
-      <a href="https://www.glassdoor.co.uk/Job/index.htm" target="_blank">Visit Site</a>
-    </div>
-
-    <div class="card">
-      <img src="https://www.christianjobs.co.uk/sites/default/files/styles/logo/public/logo_0.png" alt="ChristianJobs.co.uk Logo" />
-      <h2>ChristianJobs.co.uk</h2>
-      <a href="https://www.christianjobs.co.uk" target="_blank">Visit Site</a>
-    </div>
-
-    <div class="card">
-      <img src="https://premierjobsearch.co.uk/sites/default/files/premier_jobsearch_logo.png" alt="Premier Jobsearch Logo" />
-      <h2>Premier Jobsearch</h2>
-      <a href="https://www.premierjobsearch.co.uk" target="_blank">Visit Site</a>
-    </div>
-
-    <div class="card">
-      <img src="https://pathways.churchofengland.org/themes/custom/cofe_theme/logo.svg" alt="Church of England Pathways Logo" />
-      <h2>Church of England Pathways</h2>
-      <a href="https://pathways.churchofengland.org" target="_blank">Visit Site</a>
-    </div>
-
-    <div class="card">
-      <img src="https://www.eternityjobs.com/sites/default/files/eternity_jobs_logo.png" alt="Eternity Jobs UK Logo" />
-      <h2>Eternity Jobs UK</h2>
-      <a href="https://www.eternityjobs.com/uk" target="_blank">Visit Site</a>
-    </div>
-
-    <div class="card">
-      <img src="https://globalconnections.org.uk/sites/default/files/logo.png" alt="Christian Vocations Logo" />
-      <h2>Christian Vocations</h2>
-      <a href="https://www.christianvocations.org" target="_blank">Visit Site</a>
-    </div>
-
-    <div class="card">
-      <img src="https://jobs.majorchristianjobs.com/sites/default/files/logo.png" alt="Jobs.MajorChristianJobs.com Logo" />
-      <h2>Jobs.MajorChristianJobs.com</h2>
-      <a href="https://jobs.majorchristianjobs.com" target="_blank">Visit Site</a>
-    </div>
-
-    <div class="card">
-      <img src="https://www.faithworks.org.uk/wp-content/uploads/2020/06/Faithworks-Logo.png" alt="Faithworks Job Board Logo" />
-      <h2>Faithworks Job Board</h2>
-      <a href="https://www.faithworks.org.uk/jobs" target="_blank">Visit Site</a>
-    </div>
-
-    <div class="card">
-      <img src="https://www.eauk.org/assets/images/eauk-logo.png" alt="Evangelical Alliance Jobs Logo" />
-      <h2>Evangelical Alliance Jobs</h2>
-      <a href="https://www.eauk.org/jobs" target="_blank">Visit Site</a>
-    </div>
-
-    <div class="card">
-      <img src="https://jobs.churchtimes.co.uk/sites/default/files/ct_logo.png" alt="Church Times Jobs Logo" />
-      <h2>Church Times Jobs</h2>
-      <a href="https://jobs.churchtimes.co.uk" target="_blank">Visit Site</a>
-    </div>
-
-    <div class="card">
-      <img src="https://www.salvationarmy.org.uk/sites/default/files/salvation_army_logo.png" alt="Salvation Army Jobs UK Logo" />
-      <h2>Salvation Army Jobs UK</h2>
-      <a href="https://www.salvationarmy.org.uk/jobs" target="_blank">Visit Site</a>
+  <div class="category">
+    <h2>✝️ Christian Job Boards</h2>
+    <div class="grid" id="christianGrid">
+      <!-- Cards will be injected here by JavaScript -->
     </div>
   </div>
 
   <script>
-    function filterCards() {
-      const input = document.getElementById('searchInput');
-      const filter = input.value.toLowerCase();
-     
-::contentReference[oaicite:0]{index=0}
+    const jobSites = [
+      // Secular job boards
+      { category: 'secular', name: 'Indeed UK', url: 'https://www.indeed.co.uk', logo: 'https://upload.wikimedia.org/wikipedia/commons/4/4f/Indeed_logo.svg', description: 'One of the largest job boards with listings across all industries and locations.', search: 'q=' },
+      { category: 'secular', name: 'Reed.co.uk', url: 'https://www.reed.co.uk', logo: 'https://upload.wikimedia.org/wikipedia/commons/6/6e/Reed.co.uk_logo.svg', description: 'Popular UK job site offering thousands of roles, courses, and advice.', search: 'q=' },
+      { category: 'secular', name: 'LinkedIn Jobs', url: 'https://www.linkedin.com/jobs', logo: 'https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png', description: 'Professional networking site with advanced job search options.', search: 'keywords=' },
+      { category: 'secular', name: 'Totaljobs', url: 'https://www.totaljobs.com', logo: 'https://upload.wikimedia.org/wikipedia/commons/9/9e/Totaljobs_logo.svg', description: 'UK-focused job board for full-time and part-time opportunities.', search: 'q=' },
+      { category: 'secular', name: 'CV-Library', url: 'https://www.cv-library.co.uk', logo: 'https://upload.wikimedia.org/wikipedia/commons/1/1b/CV-Library_logo.png', description: 'One of the UK’s leading independent job boards.', search: 'keywords=' },
+      { category: 'secular', name: 'Monster UK', url: 'https://www.monster.co.uk', logo: 'https://upload.wikimedia.org/wikipedia/commons/8/8c/Monster_logo.svg', description: 'Global job search site with resume and career resources.', search: 'q=' },
+      { category: 'secular', name: 'Adzuna', url: 'https://www.adzuna.co.uk', logo: 'https://upload.wikimedia.org/wikipedia/commons/5/5e/Adzuna_logo.svg', description: 'Smart job search engine with salary stats and insights.', search: 'q=' },
+      { category: 'secular', name: 'Jobsite', url: 'https://www.jobsite.co.uk', logo: 'https://upload.wikimedia.org/wikipedia/commons/0/0e/Jobsite_logo.svg', description: 'UK site offering a wide range of job listings.', search: 'q=' },
+      { category: 'secular', name: 'Guardian Jobs', url: 'https://jobs.theguardian.com', logo: 'https://upload.wikimedia.org/wikipedia/commons/0/0e/The_Guardian_logo.svg', description: 'Known for public sector, charity, and education roles.', search: 'keywords=' },
+      { category: 'secular', name: 'Glassdoor UK', url: 'https://www.glassdoor.co.uk/Job/index.htm', logo: 'https://upload.wikimedia.org/wikipedia/commons/5/59/Glassdoor_logo.svg', description: 'Job search with company reviews and salaries.', search: 'sc.keyword=' },
+
+      // Christian job boards
+      { category: 'christian', name: 'ChristianJobs.co.uk', url: 'https://www.christianjobs.co.uk', logo: 'https://www.christianjobs.co.uk/sites/default/files/styles/logo/public/logo_0.png', description: 'UK-based board for Christian ministry and faith-aligned roles.', search: 'keywords=' },
+      { category: 'christian', name: 'Premier Jobsearch', url: 'https://www.premierjobsearch.co.uk', logo: 'https://premierjobsearch.co.uk/sites/default/files/premier_jobsearch_logo.png', description: 'Premier Christian Media’s job platform for faith-driven careers.', search: 'keywords=' },
+      { category: 'christian', name: 'Church of England Pathways', url: 'https://pathways.churchofengland.org', logo: 'https://pathways.churchofengland.org/themes/custom/cofe_theme/logo.svg', description: 'Platform for jobs within the Church of England network.', search: '' },
+      { category: 'christian', name: 'Eternity Jobs UK', url: 'https://www.eternityjobs.com/uk', logo: 'https://www.eternityjobs.com/sites/default/files/eternity_jobs_logo.png', description: 'Faith-oriented roles with a focus on mission and ministry.', search: '' },
+      { category: 'christian', name: 'Christian Vocations', url: 'https://www.christianvocations.org', logo: 'https://globalconnections.org.uk/sites/default/files/logo.png', description: 'Career and mission opportunities worldwide from a Christian perspective.', search: '' },
+      { category: 'christian', name: 'Jobs.MajorChristianJobs.com', url: 'https://jobs.majorchristianjobs.com', logo: 'https://jobs.majorchristianjobs.com/sites/default/files/logo.png', description: 'Global faith-based job network.', search: '' },
+      { category: 'christian', name: 'Faithworks Job Board', url: 'https://www.faithworks.org.uk/jobs', logo: 'https://www.faithworks.org.uk/wp-content/uploads/2020/06/Faithworks-Logo.png', description: 'Faith-led community job listings.', search: '' },
+      { category: 'christian', name: 'Evangelical Alliance Jobs', url: 'https://www.eauk.org/jobs', logo: 'https://www.eauk.org/assets/images/eauk-logo.png', description: 'Evangelical jobs in the UK and abroad.', search: '' },
+      { category: 'christian', name: 'Church Times Jobs', url: 'https://jobs.churchtimes.co.uk', logo: 'https://jobs.churchtimes.co.uk/sites/default/files/ct_logo.png', description: 'Church-based and faith sector jobs.', search: '' },
+      { category: 'christian', name: 'Salvation Army Jobs UK', url: 'https://www.salvationarmy.org.uk/jobs', logo: 'https://www.salvationarmy.org.uk/sites/default/files/salvation_army_logo.png', description: 'UK Salvation Army hiring portal.', search: '' },
+    ];
+
+    function createCard(site, query = '') {
+      const card = document.createElement('div');
+      card.className = 'card';
+      card.innerHTML = `
+        <img src="${site.logo}" alt="${site.name} Logo" class="card-img">
+        <div class="card-body">
+          <h2 class="card-title">${site.name}</h2>
+          <p class="card-description">${site.description}<br><strong>${query ? `Search for "${query}"` : ''}</strong></p>
+          <a href="${site.url}${site.search ? ('?' + site.search + encodeURIComponent(query)) : ''}" target="_blank" class="card-button">
+            ${query ? `Search "${query}"` : 'Visit Site'}
+          </a>
+        </div>
+      `;
+      return card;
+    }
+
+    function updateCards() {
+      const searchTerm = document.getElementById('searchInput').value.trim();
+      const secularGrid = document.getElementById('secularGrid');
+      const christianGrid = document.getElementById('christianGrid');
+      secularGrid.innerHTML = '';
+      christianGrid.innerHTML = '';
+
+      jobSites.forEach(site => {
+        const match = site.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                      site.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                      !searchTerm;
+
+        if (match) {
+          const card = createCard(site, searchTerm);
+          (site.category === 'secular' ? secularGrid : christianGrid).appendChild(card);
+        }
+      });
+    }
+
+    updateCards();
+  </script>
+</body>
+</html>
