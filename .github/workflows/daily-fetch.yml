@@ -27,10 +27,10 @@ jobs:
       - name: Run job fetch script
         run: node fetchJobs.js
 
-      - name: Commit and push if jobs.json changed
-        run: |
-          git config --global user.name "github-actions"
-          git config --global user.email "github-actions@github.com"
-          git add public/jobs.json
-          git commit -m "Daily job fetch update" || echo "No changes to commit"
-          git push
+- name: Commit and push if jobs.json changed
+  run: |
+    git config --global user.name "github-actions"
+    git config --global user.email "github-actions@github.com"
+    git add public/jobs.json
+    git commit -m "Daily job fetch update" || echo "No changes to commit"
+    git push
