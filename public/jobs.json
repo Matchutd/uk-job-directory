@@ -1,1 +1,14 @@
-[]
+[
+  {
+    "title": "Frontend Engineer",
+    "company": "Example Inc",
+    "location": "Remote",
+    "url": "https://example.com/job/frontend"
+  },
+  {
+    "title": "Backend Developer",
+    "company": "CodeWorks",
+    "location": "London",
+    "url": "https://example.com/job/backend"
+  }
+]
