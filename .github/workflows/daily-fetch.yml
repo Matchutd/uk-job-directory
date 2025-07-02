@@ -30,4 +30,3 @@ jobs:
           git add public/jobs.json
           git commit -m "Daily job fetch update" || echo "No changes to commit"
           git push
-Move workflow file to correct path
