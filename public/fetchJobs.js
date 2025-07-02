@@ -1,8 +1,7 @@
 const fs = require('fs');
-const fs = require('fs');
 const path = require('path');
 
-// Dummy job data
+// Example job data (mocked for testing)
 const jobs = [
   {
     title: "Marketing Assistant",
@@ -26,6 +25,6 @@ const jobs = [
 
 // Save to jobs.json
 const outputPath = path.join(__dirname, 'jobs.json');
-console.log(`🔍 Writing to: ${outputPath}`);
 fs.writeFileSync(outputPath, JSON.stringify(jobs, null, 2));
-console.log(`✅ Saved ${jobs.length} jobs to ./public/jobs.json`);
+
+console.log(`✅ Saved ${jobs.length} jobs to ${outputPath}`);
