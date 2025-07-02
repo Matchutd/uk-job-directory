@@ -1,23 +1,33 @@
 const fs = require('fs');
 const path = require('path');
 
-// Example job data
+// Hardcoded example jobs
 const jobs = [
   {
-    title: "CRM Sales Executive",
-    company: "Example Co",
-    location: "Remote",
-    link: "https://example.com/job/123",
+    title: "Marketing Assistant",
+    company: "SampleCorp",
+    location: "London",
+    url: "https://example.com/job/marketing",
     posted: new Date().toISOString().split('T')[0],
-    score: 92,
-    summary: "Matches ERP/CRM sales, remote, and key account experience"
+    score: 75,
+    summary: "Marketing role with remote options and career growth"
+  },
+  {
+    title: "Software Engineer",
+    company: "TechDev Ltd",
+    location: "Remote",
+    url: "https://example.com/job/engineer",
+    posted: new Date().toISOString().split('T')[0],
+    score: 88,
+    summary: "Developer role in a fast-growing startup"
   }
 ];
 
-// Write to jobs.json
+// Save to jobs.json
 fs.writeFileSync(
   path.join(__dirname, 'jobs.json'),
   JSON.stringify(jobs, null, 2)
 );
 
-console.log("✅ Job data written to jobs.json");
+console.log(`✅ Saved ${jobs.length} jobs to ./public/jobs.json`);
+
