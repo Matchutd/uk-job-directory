@@ -1,72 +1,30 @@
-import React, { useState } from 'react';
-import './App.css';
-import jobs from './jobs.js';
+import React from "react";
+import { HashRouter as Router, Routes, Route, Link } from "react-router-dom";
+import HomePage from "./HomePage";
+import JobListPage from "./JobListPage";
+import LiveJobsPage from "./LiveJobsPage"; // ✅ Ensure the filename matches
 
 function App() {
-  const [searchTerm, setSearchTerm] = useState('');
-  const [remoteOnly, setRemoteOnly] = useState(false);
-  const [isGridView, setIsGridView] = useState(false);
-
-  const filteredJobs = jobs
-    .filter((job) => {
-      const term = searchTerm.toLowerCase();
-      return (
-        job.title.toLowerCase().includes(term) ||
-        job.company.toLowerCase().includes(term) ||
-        job.location.toLowerCase().includes(term)
-      );
-    })
-    .filter((job) => {
-      return !remoteOnly || job.location.toLowerCase().includes('remote');
-    })
-    .sort((a, b) => b.matchScore - a.matchScore);
-
   return (
-    <div className="app-container">
-      <h1>Job Search Dashboard</h1>
+    <Router>
+      {/* Navigation Bar */}
+      <nav style={{ padding: "1rem", background: "#f0f0f0" }}>
+        <Link to="/" style={{ marginRight: "1rem" }}>🏠 Home</Link>
+        <Link to="/job-list" style={{ marginRight: "1rem" }}>📄 Job List</Link>
+        <Link to="/live-jobs">📡 Live Job Feed</Link>
+      </nav>
 
-      <div className="filters">
-        <input
-          type="text"
-          placeholder="Search by keyword..."
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-        />
-
-        <label>
-          <input
-            type="checkbox"
-            checked={remoteOnly}
-            onChange={() => setRemoteOnly(!remoteOnly)}
-          />
-          Remote only
-        </label>
-
-        <button onClick={() => setIsGridView(!isGridView)}>
-          {isGridView ? 'List View' : 'Grid View'}
-        </button>
-      </div>
-
-      <div className={isGridView ? 'job-grid' : 'job-list'}>
-        {filteredJobs.map((job) => (
-          <div key={job.id} className="job-card">
-            <h2>{job.title}</h2>
-            <p><strong>Company:</strong> {job.company}</p>
-            <p><strong>Location:</strong> {job.location}</p>
-            <p><strong>Match Score:</strong> {job.matchScore}%</p>
-            <a href={job.url} target="_blank" rel="noopener noreferrer">
-              View job
-            </a>
-          </div>
-        ))}
-      </div>
-    </div>
+      {/* Page Routes */}
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/job-list" element={<JobListPage />} />
+        <Route path="/live-jobs" element={<LiveJobsPage />} />
+      </Routes>
+    </Router>
   );
 }
 
 export default App;
-
-
 
 
 
