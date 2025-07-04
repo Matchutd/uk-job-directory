@@ -1,30 +1,31 @@
-const fs = require('fs');
-const path = require('path');
+const fs = require("fs");
+const axios = require("axios");
+const cheerio = require("cheerio");
 
-// Example job data (mocked for testing)
-const jobs = [
-  {
-    title: "Marketing Assistant",
-    company: "SampleCorp",
-    location: "London",
-    url: "https://example.com/job/marketing",
-    posted: new Date().toISOString().split('T')[0],
-    score: 75,
-    summary: "Marketing role with remote options and career growth"
-  },
-  {
-    title: "Software Engineer",
-    company: "TechDev Ltd",
-    location: "Remote",
-    url: "https://example.com/job/engineer",
-    posted: new Date().toISOString().split('T')[0],
-    score: 88,
-    summary: "Developer role in a fast-growing startup"
-  }
-];
+async function fetchJobs() {
+  const jobs = [];
 
-// Save to jobs.json
-const outputPath = path.join(__dirname, 'jobs.json');
-fs.writeFileSync(outputPath, JSON.stringify(jobs, null, 2));
+  const response = await axios.get("https://www.reed.co.uk/jobs/marketing-jobs");
+  const $ = cheerio.load(response.data);
 
-console.log(`✅ Saved ${jobs.length} jobs to ${outputPath}`);
+  $(".job-result").each((i, el) => {
+    const title = $(el).find(".job-title").text().trim();
+    const company = $(el).find(".posted-by").text().trim();
+    const location = $(el).find(".location").text().trim();
+    const url = "https://www.reed.co.uk" + $(el).find(".job-title > a").attr("href");
+
+    jobs.push({
+      title,
+      company,
+      location,
+      url,
+      posted: new Date().toISOString().split("T")[0],
+      score: Math.floor(Math.random() * 30 + 70), // placeholder
+      summary: `${title} at ${company} in ${location}`,
+    });
+  });
+
+  fs.writeFileSync("public/jobs.json", JSON.stringify(jobs, null, 2));
+}
+
+fetchJobs().catch(console.error);
