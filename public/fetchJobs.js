@@ -6,7 +6,8 @@ async function fetchJobs() {
   const jobs = [];
 
   const response = await axios.get("https://www.reed.co.uk/jobs/marketing-jobs");
-  const $ = cheerio.load(response.data);
+console.log(response.data); // 👈 Add this
+
 
   $(".job-result").each((i, el) => {
     const title = $(el).find(".job-title").text().trim();
