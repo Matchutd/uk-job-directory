@@ -4,7 +4,7 @@
     "company": "SampleCorp",
     "location": "London",
     "url": "https://example.com/job/marketing",
-    "posted": "2025-07-03",
+    "posted": "2025-07-04",
     "score": 75,
     "summary": "Marketing role with remote options and career growth"
   },
@@ -13,7 +13,7 @@
     "company": "TechDev Ltd",
     "location": "Remote",
     "url": "https://example.com/job/engineer",
-    "posted": "2025-07-03",
+    "posted": "2025-07-04",
     "score": 88,
     "summary": "Developer role in a fast-growing startup"
   }
